@@ -1,0 +1,9 @@
+ultralytics
+python-dotenv
+truststore
+
+# Pins needed because this venv reuses the CUDA torch 2.2.2 from the conda "venv" env,
+# which was compiled against NumPy 1.x (NumPy 2 / OpenCV 5 break tensor<->array conversion).
+# Drop these if you move to a current torch.
+numpy==1.26.4
+opencv-python==4.11.0.86

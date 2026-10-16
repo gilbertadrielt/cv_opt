@@ -1,0 +1,31 @@
+# Python dependencies of the YOLO26 ROCm latency harness: everything that comes from PyPI, deliberately unpinned
+# so it cannot conflict with your constraints file. Versions are decided by the constraints file:
+#
+#   pip install -r yolo_rocm_bench/requirements.txt -c <your constraints file>
+#
+# NOT listed here, on purpose: the AMD-built packages. They come from AMD's index, and their versions must match each
+# other (same +rocm suffix), so your constraints file pins them:
+#     torch, torchvision                          https://stable.repo.amd.com/rocm/whl-next/
+#     migraphx, migraphx-libs                     https://stable.repo.amd.com/rocm/migraphx/whl-next/
+#     onnxruntime-ep-migraphx                     https://stable.repo.amd.com/rocm/onnxruntime/whl-next/
+#
+# Rules that avoid a broken install:
+#   1. Install torch and torchvision FIRST. If pip meets ultralytics before a ROCm torch is present, it fetches PyPI's
+#      CUDA torch, which cannot see the GPU.
+#   2. Never `pip install migraphx` or `onnxruntime-ep-migraphx` bare. PyPI hosts empty placeholders with those names
+#      (0.0.1 and 0.0.0); only an exact pin like ==2.17.0+rocm10.0.0 is guaranteed to come from AMD's index.
+#   3. Afterwards, `pip list | grep -i -E "nvidia|torch|rocm|migraphx|onnxruntime"` must show no nvidia-* packages,
+#      +rocm builds for torch, torchvision, migraphx* and onnxruntime-ep-migraphx, and no 0.0.x placeholders.
+
+# Pulls in numpy, opencv-python, pillow, pyyaml, scipy and the rest. The harness was checked against 8.4.176;
+# env_check.py verifies that the predict arguments it needs (quantize, nms, compile, channels_last) exist.
+ultralytics
+
+# ONNX export (export_onnx.py) and the ONNX checks in env_check.py.
+onnx
+onnxslim
+
+# Stock onnxruntime, not onnxruntime-gpu. The MIGraphX plugin (onnxruntime-ep-migraphx 1.0.0, both the +rocm10.0.0 and
+# +rocm10.1.0 builds) requires exactly this release line, and AMD's MIGraphX/ONNX Runtime indexes do not serve
+# onnxruntime, so a newer one installed here would make the plugin install fail. Pinned for that reason only.
+onnxruntime~=1.29.0

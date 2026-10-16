@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+weights/*.pt
+output_images/*/
+output_images/benchmark_results.csv

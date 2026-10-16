@@ -1,0 +1,16 @@
+nc: 4
+names:
+- Die
+- Pad 1
+- Pad 2
+- Pad 3
+roboflow:
+  workspace: test-c3vhv
+  project: silicon-wafer-icwiy
+  version: 9
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/test-c3vhv/silicon-wafer-icwiy/dataset/9
+path: C:\Users\gilbe\isfyp_amd\wafer_yolo_train\datasets\silicon-wafer
+train: train/images
+val: valid/images
+test: test/images

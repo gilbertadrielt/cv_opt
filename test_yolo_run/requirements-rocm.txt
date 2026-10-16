@@ -1,0 +1,12 @@
+# For the AMD Ryzen AI Max+ 395 "Strix Halo" box (gfx1151), NOT for plain PyPI installs.
+# Use this instead of requirements.txt on that machine:
+#     pip install -r requirements-rocm.txt
+#
+# Pins torch/torchvision to AMD's ROCm 10.0.0 wheels for gfx1151 specifically, so pip
+# never touches the default PyPI index for these two packages (which would otherwise
+# resolve to the CUDA build and pull in nvidia-cudnn/cublas/nccl/etc).
+--extra-index-url https://stable.repo.amd.com/rocm/whl-next/
+torch[device-gfx1151]==2.13.0+rocm10.0.0
+torchvision[device-gfx1151]==0.28.0+rocm10.0.0
+
+-r requirements.txt

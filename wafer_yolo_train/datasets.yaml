@@ -1,0 +1,18 @@
+# Roboflow datasets to train on. Each key is a local name used by train.py (--dataset <key>).
+# The API key is NOT stored here: it is read from ROBOFLOW_API_KEY in .env.
+#
+# workspace / project / version come straight from the Universe URL:
+#   https://universe.roboflow.com/<workspace>/<project>   ->  version = the "v<N>" you pick
+datasets:
+  silicon-wafer:
+    workspace: test-c3vhv
+    project: silicon-wafer-icwiy
+    version: 9            # latest: 69 images, no baked-in augmentation (Ultralytics augments on the fly)
+    format: yolo26        # Ultralytics txt labels + data.yaml; "yolov8" is the same layout
+
+  # Second dataset: paste its Universe URL and fill in the three fields, e.g.
+  # second-dataset:
+  #   workspace: <workspace-slug>
+  #   project: <project-slug>
+  #   version: <N>
+  #   format: yolo26
